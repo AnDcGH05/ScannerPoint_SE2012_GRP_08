@@ -3,7 +3,6 @@ package ScannerPoint.example.ScannerPoint.user.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
-
     @NotBlank(message = "Username is required")
     private String username;
 

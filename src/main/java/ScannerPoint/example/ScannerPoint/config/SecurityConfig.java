@@ -1,6 +1,6 @@
 package ScannerPoint.example.ScannerPoint.config;
 
-import ScannerPoint.example.ScannerPoint.user.MyUserDetailsService;
+import ScannerPoint.example.ScannerPoint.user.security.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

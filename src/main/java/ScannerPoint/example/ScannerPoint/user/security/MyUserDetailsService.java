@@ -1,5 +1,7 @@
-package ScannerPoint.example.ScannerPoint.user;
+package ScannerPoint.example.ScannerPoint.user.security;
 
+import ScannerPoint.example.ScannerPoint.user.entity.User;
+import ScannerPoint.example.ScannerPoint.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
