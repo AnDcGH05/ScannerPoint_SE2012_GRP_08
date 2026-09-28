@@ -1,7 +1,7 @@
 package ScannerPoint.example.ScannerPoint.repair.entity;
 
-import ScannerPoint.example.ScannerPoint.customer.Customer;
-import ScannerPoint.example.ScannerPoint.customer.Vehicle;
+import ScannerPoint.example.ScannerPoint.customer.entity.Customer;
+import ScannerPoint.example.ScannerPoint.customer.entity.Vehicle;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 

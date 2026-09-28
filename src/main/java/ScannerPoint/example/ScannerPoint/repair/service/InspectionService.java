@@ -1,0 +1,31 @@
+package ScannerPoint.example.ScannerPoint.repair;
+
+import ScannerPoint.example.ScannerPoint.customer.entity.Vehicle;
+import ScannerPoint.example.ScannerPoint.customer.repository.VehicleRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class InspectionService {
+
+    private final InspectionRepository inspectionRepository;
+    private final VehicleRepository vehicleRepository;
+
+    public InspectionService(InspectionRepository inspectionRepository, VehicleRepository vehicleRepository) {
+        this.inspectionRepository = inspectionRepository;
+        this.vehicleRepository = vehicleRepository;
+    }
+
+    public Inspection createInspection(Long vehicleId, String details, String status) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleId)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + vehicleId));
+
+        Inspection inspection = new Inspection(vehicle, details, status.toUpperCase());
+        return inspectionRepository.save(inspection);
+    }
+
+    public List<Inspection> getInspectionsByVehicle(Long vehicleId) {
+        return inspectionRepository.findByVehicleId(vehicleId);
+    }
+}
