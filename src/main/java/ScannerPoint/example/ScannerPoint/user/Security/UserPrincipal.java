@@ -1,14 +1,14 @@
-package ScannerPoint.example.ScannerPoint.user;
+package ScannerPoint.example.ScannerPoint.user.security;
 
+import ScannerPoint.example.ScannerPoint.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
-
     private final User user;
 
     public UserPrincipal(User user) {
@@ -17,9 +17,9 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(
-                new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
-        );
+        return user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -39,6 +39,4 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() { return true; }
-
-    public User getUser() { return user; }
 }

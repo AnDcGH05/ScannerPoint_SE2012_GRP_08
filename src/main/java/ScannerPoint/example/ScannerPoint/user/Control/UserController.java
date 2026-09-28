@@ -1,12 +1,10 @@
-
-package ScannerPoint.example.ScannerPoint.user;
+package ScannerPoint.example.ScannerPoint.user.controller;
 
 import ScannerPoint.example.ScannerPoint.user.dto.UserResponse;
+import ScannerPoint.example.ScannerPoint.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
