@@ -1,6 +1,6 @@
-package ScannerPoint.example.ScannerPoint.Inventory.Repository;
+package ScannerPoint.example.ScannerPoint.inventory.repository;
 
-import ScannerPoint.example.ScannerPoint.Inventory.Entity.SparePart;
+import ScannerPoint.example.ScannerPoint.inventory.entity.SparePart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package ScannerPoint.example.ScannerPoint.Inventory.Entity;
+package ScannerPoint.example.ScannerPoint.inventory.entity;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
