@@ -1,4 +1,4 @@
-package ScannerPoint.example.ScannerPoint.repair;
+package ScannerPoint.example.ScannerPoint.repair.repository;
 
 import ScannerPoint.example.ScannerPoint.repair.entity.RepairTask;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,10 +1,11 @@
-package ScannerPoint.example.ScannerPoint.repair;
+package ScannerPoint.example.ScannerPoint.repair.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
+import ScannerPoint.example.ScannerPoint.repair.entity.Inspection;
+import ScannerPoint.example.ScannerPoint.repair.service.InspectionService;
 import java.util.List;
 
 @RestController
