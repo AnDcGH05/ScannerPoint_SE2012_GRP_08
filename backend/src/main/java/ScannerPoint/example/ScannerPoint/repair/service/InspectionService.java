@@ -1,7 +1,9 @@
-package ScannerPoint.example.ScannerPoint.repair;
+package ScannerPoint.example.ScannerPoint.repair.service;
 
 import ScannerPoint.example.ScannerPoint.customer.entity.Vehicle;
 import ScannerPoint.example.ScannerPoint.customer.repository.VehicleRepository;
+import ScannerPoint.example.ScannerPoint.repair.entity.Inspection;
+import ScannerPoint.example.ScannerPoint.repair.repository.InspectionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

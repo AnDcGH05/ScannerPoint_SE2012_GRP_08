@@ -1,4 +1,4 @@
-package ScannerPoint.example.ScannerPoint.repair;
+package ScannerPoint.example.ScannerPoint.repair.entity;
 
 import ScannerPoint.example.ScannerPoint.customer.entity.Vehicle;
 import jakarta.persistence.*;

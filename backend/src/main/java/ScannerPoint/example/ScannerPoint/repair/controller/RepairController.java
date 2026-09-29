@@ -1,4 +1,4 @@
-package ScannerPoint.example.ScannerPoint.repair;
+package ScannerPoint.example.ScannerPoint.repair.controller;
 
 import ScannerPoint.example.ScannerPoint.repair.dto.JobCardResponse;
 import ScannerPoint.example.ScannerPoint.repair.dto.RepairRequest;
