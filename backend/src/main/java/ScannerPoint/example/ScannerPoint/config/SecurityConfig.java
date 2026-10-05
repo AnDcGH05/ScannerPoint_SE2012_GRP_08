@@ -29,10 +29,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // Public auth endpoints
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/reception/**").hasAnyRole("ADMIN", "RECEPTIONIST")
-                        .requestMatchers("/api/mechanic/**").hasAnyRole("ADMIN", "MECHANIC")
-                        .requestMatchers("/api/inventory/**").hasAnyRole("ADMIN", "STOREKEEPER")
+                        // Role rules live on each controller method with @PreAuthorize
+                        // (one place per endpoint). URL role rules here used to clash with them,
+                        // e.g. blocking mechanics from /api/inventory/dispense.
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults()); // Basic Auth for testing

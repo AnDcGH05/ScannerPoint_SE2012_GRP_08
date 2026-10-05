@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.BadRequestException;
+import ScannerPoint.example.ScannerPoint.common.exception.ConflictException;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class PayrollService {
@@ -27,13 +30,13 @@ public class PayrollService {
     @Transactional
     public SalaryPaymentResponse recordPayment(Long employeeId, SalaryPaymentRequest request) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + employeeId));
+                .orElseThrow(() -> new NotFoundException("Employee not found with id: " + employeeId));
 
         if (!Boolean.TRUE.equals(employee.getActive())) {
-            throw new RuntimeException("Cannot record a salary payment for an inactive employee.");
+            throw new BadRequestException("Cannot record a salary payment for an inactive employee.");
         }
         if (salaryPaymentRepository.existsByEmployeeIdAndPayMonth(employeeId, request.getPayMonth())) {
-            throw new RuntimeException("Salary for " + request.getPayMonth() + " is already recorded for this employee!");
+            throw new ConflictException("Salary for " + request.getPayMonth() + " is already recorded for this employee!");
         }
 
         Double amount = (request.getAmount() != null) ? request.getAmount() : employee.getMonthlySalary();
@@ -45,7 +48,7 @@ public class PayrollService {
     @Transactional(readOnly = true)
     public List<SalaryPaymentResponse> getPaymentsForEmployee(Long employeeId) {
         if (!employeeRepository.existsById(employeeId)) {
-            throw new RuntimeException("Employee not found with id: " + employeeId);
+            throw new NotFoundException("Employee not found with id: " + employeeId);
         }
         return salaryPaymentRepository.findByEmployeeIdOrderByPayMonthDescIdDesc(employeeId).stream()
                 .map(this::mapToResponse)

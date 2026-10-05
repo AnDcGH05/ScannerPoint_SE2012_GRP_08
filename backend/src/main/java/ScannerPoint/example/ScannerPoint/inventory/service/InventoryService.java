@@ -11,9 +11,12 @@ import ScannerPoint.example.ScannerPoint.inventory.repository.SparePartRepositor
 import ScannerPoint.example.ScannerPoint.repair.entity.JobCard;
 import ScannerPoint.example.ScannerPoint.repair.repository.JobCardRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.BadRequestException;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class InventoryService {
@@ -33,9 +36,13 @@ public class InventoryService {
         this.jobCardRepository = jobCardRepository;
     }
 
+    @Transactional
     public InventoryResponse restockPart(Long partId, Integer quantity, String notes) {
+        if (quantity == null || quantity <= 0) {
+            throw new BadRequestException("Quantity must be greater than zero");
+        }
         SparePart part = sparePartRepository.findById(partId)
-                .orElseThrow(() -> new RuntimeException("Spare part not found with id: " + partId));
+                .orElseThrow(() -> new NotFoundException("Spare part not found with id: " + partId));
 
         part.setQuantityInStock(part.getQuantityInStock() + quantity);
         sparePartRepository.save(part);
@@ -46,15 +53,19 @@ public class InventoryService {
         return mapToResponse(saved);
     }
 
+    @Transactional
     public void dispensePartForJob(Long jobCardId, Long partId, Integer quantity) {
+        if (quantity == null || quantity <= 0) {
+            throw new BadRequestException("Quantity must be greater than zero");
+        }
         JobCard jobCard = jobCardRepository.findById(jobCardId)
-                .orElseThrow(() -> new RuntimeException("Job card not found with id: " + jobCardId));
+                .orElseThrow(() -> new NotFoundException("Job card not found with id: " + jobCardId));
 
         SparePart part = sparePartRepository.findById(partId)
-                .orElseThrow(() -> new RuntimeException("Spare part not found with id: " + partId));
+                .orElseThrow(() -> new NotFoundException("Spare part not found with id: " + partId));
 
         if (part.getQuantityInStock() < quantity) {
-            throw new RuntimeException("Insufficient stock available for part: " + part.getName());
+            throw new BadRequestException("Insufficient stock available for part: " + part.getName());
         }
 
         part.setQuantityInStock(part.getQuantityInStock() - quantity);

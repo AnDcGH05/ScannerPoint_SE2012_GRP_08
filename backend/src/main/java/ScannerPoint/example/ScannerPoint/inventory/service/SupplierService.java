@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.ConflictException;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class SupplierService {
@@ -20,7 +22,7 @@ public class SupplierService {
 
     public SupplierResponse createSupplier(SupplierRequest request) {
         if (supplierRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Supplier with this email already exists!");
+            throw new ConflictException("Supplier with this email already exists!");
         }
 
         Supplier supplier = new Supplier(
@@ -43,7 +45,7 @@ public class SupplierService {
 
     public SupplierResponse getSupplierById(Long id) {
         Supplier supplier = supplierRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Supplier not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Supplier not found with id: " + id));
         return mapToResponse(supplier);
     }
 

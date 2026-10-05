@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class PaymentService {
@@ -25,7 +26,7 @@ public class PaymentService {
     @Transactional
     public PaymentResponse processPayment(PaymentRequest request) {
         Invoice invoice = invoiceRepository.findById(request.getInvoiceId())
-                .orElseThrow(() -> new RuntimeException("Invoice not found"));
+                .orElseThrow(() -> new NotFoundException("Invoice not found"));
 
         Payment payment = new Payment(invoice, request.getAmount(), request.getPaymentMethod());
         Payment saved = paymentRepository.save(payment);

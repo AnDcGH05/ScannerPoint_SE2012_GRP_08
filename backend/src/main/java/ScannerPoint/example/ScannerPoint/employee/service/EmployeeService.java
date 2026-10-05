@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.ConflictException;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 @Transactional
@@ -26,7 +28,7 @@ public class EmployeeService {
 
     public EmployeeResponse createEmployee(EmployeeRequest request) {
         if (employeeRepository.existsByNic(request.getNic())) {
-            throw new RuntimeException("An employee with this NIC already exists!");
+            throw new ConflictException("An employee with this NIC already exists!");
         }
 
         Employee employee = new Employee(
@@ -58,7 +60,7 @@ public class EmployeeService {
         Employee employee = findEmployee(id);
 
         if (!employee.getNic().equals(request.getNic()) && employeeRepository.existsByNic(request.getNic())) {
-            throw new RuntimeException("An employee with this NIC already exists!");
+            throw new ConflictException("An employee with this NIC already exists!");
         }
 
         employee.setFullName(request.getFullName());
@@ -81,7 +83,7 @@ public class EmployeeService {
 
     private Employee findEmployee(Long id) {
         return employeeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Employee not found with id: " + id));
     }
 
     // 'current' is the employee being edited (null when creating), so keeping the same link is allowed
@@ -89,12 +91,12 @@ public class EmployeeService {
         if (userId == null) return null;
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + userId));
 
         boolean sameLink = current != null && current.getUser() != null
                 && current.getUser().getId().equals(userId);
         if (!sameLink && employeeRepository.existsByUserId(userId)) {
-            throw new RuntimeException("This user account is already linked to another employee.");
+            throw new ConflictException("This user account is already linked to another employee.");
         }
         return user;
     }
