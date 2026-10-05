@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.ConflictException;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class SparePartService {
@@ -24,13 +26,13 @@ public class SparePartService {
 
     public SparePartResponse createSparePart(SparePartRequest request) {
         if (sparePartRepository.existsByPartNumber(request.getPartNumber())) {
-            throw new RuntimeException("Part number already exists!");
+            throw new ConflictException("Part number already exists!");
         }
 
         Supplier supplier = null;
         if (request.getSupplierId() != null) {
             supplier = supplierRepository.findById(request.getSupplierId())
-                    .orElseThrow(() -> new RuntimeException("Supplier not found with id: " + request.getSupplierId()));
+                    .orElseThrow(() -> new NotFoundException("Supplier not found with id: " + request.getSupplierId()));
         }
 
         SparePart sparePart = new SparePart(

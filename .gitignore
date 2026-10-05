@@ -7,3 +7,6 @@ backend/target/
 
 # Mac OS system files
 .DS_Store
+
+# Private local settings (passwords)
+backend/src/main/resources/application-local.properties

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class AppointmentService {
@@ -30,10 +31,10 @@ public class AppointmentService {
 
     public AppointmentResponse createAppointment(AppointmentRequest request) {
         Customer customer = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found with id: " + request.getCustomerId()));
+                .orElseThrow(() -> new NotFoundException("Customer not found with id: " + request.getCustomerId()));
 
         Vehicle vehicle = vehicleRepository.findById(request.getVehicleId())
-                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + request.getVehicleId()));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + request.getVehicleId()));
 
         Appointment appointment = new Appointment(
                 customer,
@@ -55,7 +56,7 @@ public class AppointmentService {
 
     public AppointmentResponse updateStatus(Long id, String status) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Appointment not found with id: " + id));
 
         appointment.setStatus(status.toUpperCase());
         Appointment updated = appointmentRepository.save(appointment);

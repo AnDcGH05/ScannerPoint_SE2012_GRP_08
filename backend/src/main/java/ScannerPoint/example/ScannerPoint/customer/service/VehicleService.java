@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class VehicleService {
@@ -23,7 +24,7 @@ public class VehicleService {
 
     public VehicleResponse createVehicle(VehicleRequest request) {
         Customer customer = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
 
         Vehicle vehicle = new Vehicle(request.getLicensePlate(), request.getMake(), request.getModel(), customer);
         Vehicle saved = vehicleRepository.save(vehicle);

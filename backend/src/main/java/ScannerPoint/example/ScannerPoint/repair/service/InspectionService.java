@@ -7,6 +7,7 @@ import ScannerPoint.example.ScannerPoint.repair.repository.InspectionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class InspectionService {
@@ -21,7 +22,7 @@ public class InspectionService {
 
     public Inspection createInspection(Long vehicleId, String details, String status) {
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + vehicleId));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + vehicleId));
 
         Inspection inspection = new Inspection(vehicle, details, status.toUpperCase());
         return inspectionRepository.save(inspection);

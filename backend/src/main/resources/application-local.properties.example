@@ -1,0 +1,4 @@
+# Copy this file to application-local.properties (same folder) and fill in your own MySQL login.
+# application-local.properties is ignored by Git, so your password never reaches GitHub.
+spring.datasource.username=root
+spring.datasource.password=your_mysql_password_here

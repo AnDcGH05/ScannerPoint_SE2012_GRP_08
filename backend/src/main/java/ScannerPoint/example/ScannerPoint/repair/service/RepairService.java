@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.NotFoundException;
 
 @Service
 public class RepairService {
@@ -32,12 +33,12 @@ public class RepairService {
 
     public RepairResponse createJobCard(RepairRequest request) {
         Vehicle vehicle = vehicleRepository.findById(request.getVehicleId())
-                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + request.getVehicleId()));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found with id: " + request.getVehicleId()));
 
         User mechanic = null;
         if (request.getMechanicId() != null) {
             mechanic = userRepository.findById(request.getMechanicId())
-                    .orElseThrow(() -> new RuntimeException("Mechanic not found with id: " + request.getMechanicId()));
+                    .orElseThrow(() -> new NotFoundException("Mechanic not found with id: " + request.getMechanicId()));
         }
 
         String generatedCardNum = "JOB-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
@@ -59,7 +60,7 @@ public class RepairService {
 
     public RepairResponse updateJobCardStatus(Long id, String status) {
         JobCard jobCard = jobCardRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job card not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Job card not found with id: " + id));
 
         jobCard.setStatus(status.toUpperCase());
         JobCard updated = jobCardRepository.save(jobCard);

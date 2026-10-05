@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import ScannerPoint.example.ScannerPoint.common.exception.ConflictException;
 
 @Service
 public class UserService {
@@ -27,13 +28,16 @@ public class UserService {
 
     public UserResponse registerUser(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Username is already taken!");
+            throw new ConflictException("Username is already taken!");
+        }
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new ConflictException("An account with this email already exists!");
         }
 
         User user = new User(request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()));
 
         Role userRole = roleRepository.findByName("ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("Default role not found."));
+                .orElseThrow(() -> new IllegalStateException("Default role not found."));
         user.setRoles(Collections.singleton(userRole));
 
         User savedUser = userRepository.save(user);
