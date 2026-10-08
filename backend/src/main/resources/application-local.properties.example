@@ -1,4 +1,14 @@
-# Copy this file to application-local.properties (same folder) and fill in your own MySQL login.
+# Copy this file to application-local.properties (same folder) and fill in your own values.
 # application-local.properties is ignored by Git, so your password never reaches GitHub.
 spring.datasource.username=root
 spring.datasource.password=your_mysql_password_here
+
+# Optional: real e-mail through Mailtrap (https://mailtrap.io) or Gmail
+#spring.mail.host=sandbox.smtp.mailtrap.io
+#spring.mail.port=2525
+#spring.mail.username=your_mailtrap_username
+#spring.mail.password=your_mailtrap_password
+
+# Optional: real bank details for the payment panel
+#app.bank.account-name=ScannerPoint (Pvt) Ltd
+#app.bank.account-no=123456789012
