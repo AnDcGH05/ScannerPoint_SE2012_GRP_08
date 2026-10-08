@@ -1,0 +1,22 @@
+package ScannerPoint.example.ScannerPoint.customer.dto;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
+/** Profile edit. nic can only be changed by staff (ignored for customers). */
+public record CustomerUpdateRequest(
+        @NotBlank @Size(max = 50) String firstName,
+        @NotBlank @Size(max = 50) String lastName,
+        @Pattern(regexp = "^([0-9]{9}[VvXx]|[0-9]{12})?$", message = "NIC must be 9 digits + V/X or 12 digits") String nic,
+        @NotBlank @Email @Size(max = 100) String email,
+        @NotBlank @Size(max = 100) String street,
+        @NotBlank @Size(max = 50) String city,
+        @Pattern(regexp = "^([0-9]{5})?$", message = "Postal code must be 5 digits") String postalCode,
+        @NotEmpty(message = "Add at least one phone number") List<@Valid PhoneDto> phones) {
+}
