@@ -10,7 +10,7 @@ import Tabs from '../../../components/Tabs'
 import { useAuth } from '../../../auth/AuthContext'
 import { dateTime, isoDate } from '../../../lib/format'
 import useApi from '../../../lib/useApi'
-import { inStage, STAGE_LABELS, STAGES } from '../componants/stages.js'
+import { inStage, STAGE_LABELS, STAGES } from '../components/stages.js'
 
 /** Mechanic dashboard – "My jobs" (Stitch S3). */
 export default function MechanicDashboardPage() {

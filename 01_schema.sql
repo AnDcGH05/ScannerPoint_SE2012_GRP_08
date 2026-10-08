@@ -550,7 +550,7 @@ BEGIN
     INSERT INTO job_status_history (job_card_id, status, changed_at, changed_by)
     VALUES (NEW.job_card_id, NEW.status, NEW.status_changed_at, NEW.status_changed_by);
 END$$
-DELIMITER;
+DELIMITER ;
 
 DELIMITER $$
 -- ... and every later change of stage

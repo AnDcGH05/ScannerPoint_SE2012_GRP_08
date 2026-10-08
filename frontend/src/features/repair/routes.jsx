@@ -1,8 +1,8 @@
-import CustomerJobPage from './CustomerJobPage.jsx'
-import JobBoardPage from './JobBoardPage.jsx'
-import JobDetailPage from './JobDetailPage.jsx'
-import MechanicDashboardPage from './MechanicDashboardPage.jsx'
-import StaffPage from './StaffPage.jsx'
+import CustomerJobPage from './pages/CustomerJobPage.jsx'
+import JobBoardPage from './pages/JobBoardPage.jsx'
+import JobDetailPage from './pages/JobDetailPage.jsx'
+import MechanicDashboardPage from './pages/MechanicDashboardPage.jsx'
+import StaffPage from './pages/StaffPage.jsx'
 
 /** Sohan – job cards, smart repair workflow, notifications and staff. */
 export default {

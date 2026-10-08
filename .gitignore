@@ -10,3 +10,11 @@ backend/target/
 
 # Private local settings (passwords)
 backend/src/main/resources/application-local.properties
+
+# Uploaded vehicle documents and payment slips (stay on each machine)
+uploads/
+backend/uploads/
+
+# Frontend build output and packages
+frontend/node_modules/
+frontend/dist/
