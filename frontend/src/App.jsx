@@ -3,6 +3,7 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx'
 import { homePath, useAuth } from './auth/AuthContext.jsx'
 import CustomerLayout from './layouts/CustomerLayout.jsx'
 import StaffLayout from './layouts/StaffLayout.jsx'
+import LandingPage from './pages/LandingPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import NotFound from './pages/NotFound.jsx'
 import WelcomePage from './pages/WelcomePage.jsx'
@@ -36,7 +37,7 @@ export default function App() {
         {staffRoutes.map((r) => <Route key={r.path} path={r.path} element={guard(r)} />)}
       </Route>
 
-      <Route path="/" element={<RoleHome />} />
+      <Route path="/" element={<LandingPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
