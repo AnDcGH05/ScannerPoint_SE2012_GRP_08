@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { errorMessage, fieldErrors } from '../api/client.js'
 import { homePath, useAuth } from '../auth/AuthContext.jsx'
 import Button from '../components/Button.jsx'
@@ -45,7 +45,8 @@ export default function LoginPage() {
   const { user, login, register } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
-  const [tab, setTab] = useState('login')
+  const [searchParams] = useSearchParams()
+  const [tab, setTab] = useState(searchParams.get('tab') === 'register' ? 'register' : 'login')
   const [creds, setCreds] = useState({ usernameOrEmail: '', password: '' })
   const [form, setForm] = useState(EMPTY)
   const [errors, setErrors] = useState({})
@@ -145,7 +146,11 @@ export default function LoginPage() {
 
       {/* right: forms */}
       <div className="flex items-center justify-center bg-page p-4 sm:p-8">
-        <div className="card w-full max-w-xl p-6 sm:p-8">
+        <div className="w-full max-w-xl">
+        <Link to="/" className="mb-3 inline-flex items-center gap-1 text-label-lg text-navy hover:text-orange">
+          <Icon name="arrow_back" className="text-[18px]" /> Back to home
+        </Link>
+        <div className="card w-full p-6 sm:p-8">
           <div className="mb-6 flex items-center gap-2 lg:hidden">
             <Icon name="build_circle" fill className="text-orange" size={30} />
             <p className="text-headline-md text-navy">ScannerPoint</p>
@@ -220,6 +225,7 @@ export default function LoginPage() {
               <Button type="submit" className="w-full" size="lg" loading={busy} icon="person_check">Create account</Button>
             </form>
           )}
+        </div>
         </div>
       </div>
     </div>
