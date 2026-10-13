@@ -24,12 +24,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Turns every exception into the same {@link ApiError} JSON.
- *
- * Database rules: our MySQL triggers raise SQLSTATE 45000 with a readable message
- * (e.g. "Deposit has not been verified"), and CHECK / UNIQUE / FK constraints raise
- * SQLSTATE 23xxx or error 3819. Both are returned as 409 Conflict with the message,
- * so the front end can show exactly why the database refused the action.
+ * Turns every exception into the same JSON. Our MySQL triggers raise SQLSTATE 45000 with a readable message like "Deposit has not been verified", and CHECK / UNIQUE / FK constraints raise
+   SQLSTATE 23xxx or error 3819. Both are returned as 409 Conflict with the message, so the front end can show exactly why the database refused the action.
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
