@@ -37,7 +37,7 @@ export default function CustomersPage() {
   const list = customers.data || []
   return (
     <>
-      <PageHeader eyebrow="Front desk" title="Customers & vehicles" subtitle="Find customers by name, phone, NIC or number plate, and register walk-in customers."
+      <PageHeader eyebrow="Front desk" title="Customers & vehicles" subtitle="Find customers by name, phone, NIC, e-mail or number plate, and register walk-in customers."
         actions={<Button icon="person_add" onClick={() => setWalkIn(true)}>Register walk-in customer</Button>} />
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
         <StatCard label="Customers" value={query ? `${list.length} found` : list.length} icon="groups" />
@@ -48,7 +48,7 @@ export default function CustomersPage() {
         <div className="border-b border-line p-4">
           <div className="relative">
             <Icon name="search" className="absolute left-3 top-2.5 text-slate-400" />
-            <input className="input pl-10" placeholder="Search by name, phone, NIC or number plate (e.g. Nimal, 077, 1985…, WP-CAV-9548)" value={q} onChange={(e) => setQ(e.target.value)} />
+            <input className="input pl-10" placeholder="Search by name, phone, NIC, e-mail or number plate (e.g. Nimal, 077, nimal@, WP-CAV-9548)" value={q} onChange={(e) => setQ(e.target.value)} />
           </div>
         </div>
         {customers.loading ? <Loading /> : customers.error ? <ErrorBanner error={customers.error} className="m-4" /> : !list.length ? (

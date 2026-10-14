@@ -13,14 +13,16 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     List<Customer> findAllByOrderByLastNameAscFirstNameAsc();
 
-    /** Receptionist search box: name, NIC, phone or number plate (returns customer ids). */
+    /** Receptionist search box: name, NIC, e-mail, phone or number plate (returns customer ids). */
     @Query(value = """
             SELECT DISTINCT c.customer_id
             FROM customer c
+            JOIN user_account u        ON u.user_id = c.customer_id
             LEFT JOIN customer_phone p ON p.customer_id = c.customer_id
             LEFT JOIN vehicle v        ON v.customer_id = c.customer_id
             WHERE CONCAT(c.first_name, ' ', c.last_name) LIKE CONCAT('%', :q, '%')
                OR c.nic LIKE CONCAT('%', :q, '%')
+               OR u.email LIKE CONCAT('%', :q, '%')
                OR p.phone_no LIKE CONCAT('%', :q, '%')
                OR v.registration_no LIKE CONCAT('%', :q, '%')""", nativeQuery = true)
     List<Integer> searchIds(@Param("q") String q);
