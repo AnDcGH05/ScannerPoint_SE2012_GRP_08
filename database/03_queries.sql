@@ -179,7 +179,7 @@ ORDER BY MIN(CASE h.status WHEN 'INSPECTION' THEN 2 WHEN 'DIAGNOSIS' THEN 3 WHEN
                            WHEN 'IN_PROGRESS' THEN 5 WHEN 'QUALITY_CHECK' THEN 6 WHEN 'READY' THEN 7 END);
 
 
--- (03) Tevindu [IT number] – Inventory & Spare Parts
+-- (03) Tevindu [IT25100958] – Inventory & Spare Parts
 
 -- 3.1 Low-stock alert with the supplier to re-order from
 SELECT  p.part_code,
@@ -252,7 +252,7 @@ WHERE   r.status IN ('PENDING','BACK_ORDERED')
 ORDER BY r.requested_at;
 
 
--- (04) Sew [IT number] – Packages, Billing, Payments & Feedback
+-- (04) Sewmini [IT25100962] – Packages, Billing, Payments & Feedback
 -- 4.1 Itemised invoice for printing (INV-2026-0001)
 SELECT  ii.line_no,
         ii.item_type,
