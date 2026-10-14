@@ -18,13 +18,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Saves uploaded documents and payment slips under {@code app.upload-dir}.
- * Only PDF, JPG and PNG up to 5 MB are accepted; files are renamed with a UUID
- * so a customer can never overwrite somebody else's file.
- *
- * The database stores paths like {@code uploads/slips/1a2b...jpg}.
- */
 @Service
 public class FileStorageService {
 
@@ -40,7 +33,6 @@ public class FileStorageService {
         this.root = Path.of(uploadDir).toAbsolutePath().normalize();
     }
 
-    /** @param folder sub-folder such as "documents" or "slips" */
     public String store(MultipartFile file, String folder) {
         if (file == null || file.isEmpty()) {
             throw new BadRequestException("Please choose a file to upload");
