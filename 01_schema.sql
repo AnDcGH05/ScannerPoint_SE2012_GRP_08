@@ -5,7 +5,7 @@ DROP DATABASE IF EXISTS scannerpoint;
 CREATE DATABASE scannerpoint CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE scannerpoint;
 
--- Member 1 – Aneesha [IT number]: USER_ACCOUNT, CUSTOMER, CUSTOMER_PHONE, VEHICLE, VEHICLE_DOCUMENT, APPOINTMENT
+-- Member 1 – Aneesha [IT25100952]: USER_ACCOUNT, CUSTOMER, CUSTOMER_PHONE, VEHICLE, VEHICLE_DOCUMENT, APPOINTMENT
 CREATE TABLE user_account (
     user_id         INT UNSIGNED  NOT NULL AUTO_INCREMENT,
     username        VARCHAR(50)   NOT NULL,
@@ -114,10 +114,9 @@ CREATE TABLE appointment (
     CONSTRAINT chk_appt_cancelled CHECK ((status = 'CANCELLED') = (cancelled_at IS NOT NULL))
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- Member 2 – Sohan [IT number]: EMPLOYEE, JOB_CARD, JOB_STATUS_HISTORY, INSPECTION, REPAIR_TASK,
---                                NOTIFICATION
--- ---------------------------------------------------------------------
+
+-- Member 2 – Sohan [IT25100963]: EMPLOYEE, JOB_CARD, JOB_STATUS_HISTORY, INSPECTION, REPAIR_TASK, NOTIFICATION
+
 CREATE TABLE employee (
     employee_id     INT UNSIGNED  NOT NULL,
     first_name      VARCHAR(50)   NOT NULL,
@@ -226,10 +225,9 @@ CREATE TABLE notification (
         REFERENCES customer (customer_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- Member 3 – Tevindu [IT number]: SUPPLIER, SPARE_PART, SUPPLIER_PART, PART_REQUEST, PART_USAGE,
---                                  INVENTORY_TRANSACTION
--- ---------------------------------------------------------------------
+
+-- Member 3 – Tevindu [IT25100958]: SUPPLIER, SPARE_PART, SUPPLIER_PART, PART_REQUEST, PART_USAGE, INVENTORY_TRANSACTION
+
 CREATE TABLE supplier (
     supplier_id     INT UNSIGNED  NOT NULL AUTO_INCREMENT,
     supplier_name   VARCHAR(100)  NOT NULL,
@@ -339,9 +337,9 @@ CREATE TABLE inventory_transaction (
     CONSTRAINT chk_txn_supplier CHECK ((txn_type = 'RECEIPT') = (supplier_id IS NOT NULL))
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- Member 4 – Sew [IT number]: SERVICE_TYPE, INVOICE, INVOICE_ITEM, PAYMENT, REFUND, FEEDBACK
--- ---------------------------------------------------------------------
+
+-- Member 4 – Sewmini [IT25100962]: SERVICE_TYPE, INVOICE, INVOICE_ITEM, PAYMENT, REFUND, FEEDBACK
+
 -- the three service packages offered to customers
 CREATE TABLE service_type (
     service_type_id         INT UNSIGNED  NOT NULL AUTO_INCREMENT,
@@ -477,8 +475,8 @@ CREATE TABLE feedback (
     CONSTRAINT chk_feedback_rating CHECK (rating BETWEEN 1 AND 5)
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- Indexes for frequent searches (NFR: performance)
+
+-- Indexes for frequent searches 
 -- ---------------------------------------------------------------------
 CREATE INDEX idx_customer_name   ON customer (last_name, first_name);
 CREATE INDEX idx_appt_scheduled  ON appointment (scheduled_at);
@@ -491,8 +489,7 @@ CREATE INDEX idx_usage_job_part  ON part_usage (job_card_id, part_id);
 CREATE INDEX idx_txn_part_time   ON inventory_transaction (part_id, txn_at);
 CREATE INDEX idx_request_status  ON part_request (status);
 
--- ---------------------------------------------------------------------
--- Triggers (business rules that CHECK constraints cannot express)
+-- Triggers (business rules that CHECK constraints can't express)
 -- ---------------------------------------------------------------------
 
 -- Aneesha: a booking is confirmed only after its deposit slip has been verified
@@ -608,7 +605,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
--- Aneesha + Sew: cancel a booking and apply the 24-hour rule
+-- Aneesha + Sewmini: cancel a booking and apply the 24-hour rule
 --   24 hours or more before the booked time -> the whole deposit is refunded
 --   less than 24 hours                      -> 50% of the deposit is kept as a penalty
 CREATE PROCEDURE sp_cancel_appointment(IN p_appointment_id INT UNSIGNED, IN p_cancelled_at DATETIME)
@@ -652,8 +649,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
--- ---------------------------------------------------------------------
--- Sew: invoice totals are derived, never stored (avoids update anomalies).
+-- Sewmini: invoice totals are derived, never stored (avoids update anomalies).
 --      The verified deposit of the booking is deducted from the bill.
 CREATE VIEW v_invoice_summary AS
 SELECT  i.invoice_id,
