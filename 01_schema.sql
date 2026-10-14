@@ -1,4 +1,3 @@
-
 --  ScannerPoint – Garage & Vehicle Diagnostics Database
 --  SE2032 Database Management Systems · Group SE2012_GRP_08
 

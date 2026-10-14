@@ -1,10 +1,6 @@
 import axios from 'axios'
 
-/**
- * One Axios instance for the whole app. It adds the JWT to every request and,
- * if the server says 401 (token expired), logs the user out.
- * In development Vite forwards /api to http://localhost:8081 (see vite.config.js).
- */
+
 export const TOKEN_KEY = 'sp_token'
 
 const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || '' })
@@ -26,7 +22,6 @@ api.interceptors.response.use(
   },
 )
 
-/** The readable message from our backend's ApiError body. */
 export function errorMessage(err) {
   if (!err) return ''
   if (err.response?.data?.message) return err.response.data.message
@@ -34,7 +29,6 @@ export function errorMessage(err) {
   return 'Cannot reach the ScannerPoint server. Is the backend running on port 8081?'
 }
 
-/** Field-by-field validation messages ({ field: message }). */
 export function fieldErrors(err) {
   return err?.response?.data?.fieldErrors || {}
 }
