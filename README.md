@@ -233,7 +233,7 @@ The application test also checks that every entity matches the database, so it n
 
 | Member | Module |
 |---|---|
-| Aneesha (IT25100952) | Customer, Vehicle & Booking management; shared setup (security, error handling, frontend shell) |
-| Sohan (IT25100963) | Job Card, Repair Workflow, Notifications & Staff |
-| Tevindu (IT25100958) | Inventory & Spare Parts |
-| Sewmini (IT25100962) | Packages, Billing, Payments, Refunds, Feedback & Reports |
+| Perera K.A.D (IT25100952) | Customer, Vehicle & Booking management; shared setup (security, error handling, frontend shell) |
+| Warnakulasuriya S.C.G (IT25100963) | Job Card, Repair Workflow, Notifications & Staff |
+| Wickramasinghe T.P.A (IT25100958) | Inventory & Spare Parts |
+| Hewapola W.S.P (IT25100962) | Packages, Billing, Payments, Refunds, Feedback & Reports |
